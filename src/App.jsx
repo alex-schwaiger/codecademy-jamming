@@ -1,35 +1,89 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import Header from './components/Header';
+import Search from './components/Search';
+import SearchResults from './components/SearchResults';
+import Playlist from './components/Playlist';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [plalistName, setPlaylistName] = useState('New Playlist');
+
+  const [searchResult, setSearchResults] = useState([
+    {
+      name: 'HAPPY',
+      artist: 'NF',
+      album: 'HOPE',
+      id: 'HAPPY',
+      isSelectedToPlaylist: false,
+    },
+    {
+      id: 'MOTTO',
+      name: 'MOTTO',
+      artist: 'NF',
+      album: 'HOPE',
+      isSelectedToPlaylist: false,
+    },
+    {
+      id: 'aksdjfl',
+      name: 'sdfads',
+      artist: 'NF',
+      album: 'HOPE',
+      isSelectedToPlaylist: false,
+    },
+    {
+      id: 'MOowiuerTTO',
+      name: 'aslkdjflsdjOTTO',
+      artist: 'NF',
+      album: 'HOPE',
+      isSelectedToPlaylist: false,
+    },
+  ]);
+
+  const [playListTracks, setPlaylistTracks] = useState([
+    {
+      id: 'MOTTO',
+      name: 'MOTTO',
+      artist: 'NF',
+      album: 'HOPE',
+      isSelectedToPlaylist: true,
+    },
+  ]);
+
+  const addTrack = (track) => {
+    if (!track.id) {
+      console.error('Track does not have an id property');
+      return;
+    }
+    if (playListTracks.some((tracks) => tracks.id === track.id)) return;
+    track.isSelectedToPlaylist = true;
+    setPlaylistTracks((prevTracks) => [...prevTracks, track]);
+  };
+
+  const removeTrack = (track) => {
+    track.isSelectedToPlaylist = false;
+    setPlaylistTracks((prevTracks) =>
+      prevTracks.filter((currentTrack) => currentTrack.id !== track.id),
+    );
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <Header />
+      <main className='container mx-auto'>
+        <section className='py-14'>
+          <Search btnContent='Submit' btnType='Submit' />
+          <section className='grid gap-44 pt-14 md:grid-cols-2'>
+            <SearchResults results={searchResult} addTrack={addTrack} />
+            <Playlist
+              setPlaylistName={setPlaylistName}
+              defaultPlaylistName={plalistName}
+              playlistTracks={playListTracks}
+              removeTrack={removeTrack}
+            />
+          </section>
+        </section>
+      </main>
+    </div>
+  );
+};
 
-export default App
+export default App;
