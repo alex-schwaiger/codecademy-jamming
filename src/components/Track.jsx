@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { Button } from './Button';
 
 const Track = ({
@@ -9,14 +10,13 @@ const Track = ({
   addTrack,
   removeTrack,
 }) => {
-  console.log(removeTrack);
-  const onAddTrack = () => {
+  const onAddTrack = useCallback(() => {
     addTrack({ id, name, artist, album, isSelectedToPlaylist });
-  };
+  }, [addTrack, id, name, artist, isSelectedToPlaylist, album]);
 
-  const onRemoveTrack = () => {
+  const onRemoveTrack = useCallback(() => {
     removeTrack({ id, name, artist, album, isSelectedToPlaylist });
-  };
+  }, [removeTrack, id, name, artist, isSelectedToPlaylist, album]);
 
   return (
     <div className='flex justify-between py-6'>

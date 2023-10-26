@@ -1,9 +1,11 @@
+import { usePlaylistContext } from '../hooks/usePlaylist';
 import Tracklist from './Tracklist';
 
-const SearchResults = ({ results, addTrack }) => {
+const SearchResults = () => {
+  const { searchResult } = usePlaylistContext();
   return (
     <div>
-      <Tracklist tracks={results} addTrack={addTrack} />
+      <Tracklist tracks={searchResult} />
     </div>
   );
 };
