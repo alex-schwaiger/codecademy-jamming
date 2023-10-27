@@ -3,12 +3,13 @@ import Search from './components/Search';
 import SearchResults from './components/SearchResults';
 import Playlist from './components/Playlist';
 import { PlaylistContextComponent } from './context/userContext';
+import Footer from './components/Footer';
 
 const App = () => {
   return (
-    <div>
+    <>
       <Header />
-      <main className='container mx-auto'>
+      <main className='container mx-auto px-8'>
         <section className='py-14'>
           <PlaylistContextComponent>
             <Search btnContent='Submit' btnType='Submit' />
@@ -19,7 +20,8 @@ const App = () => {
           </PlaylistContextComponent>
         </section>
       </main>
-    </div>
+      <Footer />
+    </>
   );
 };
 
