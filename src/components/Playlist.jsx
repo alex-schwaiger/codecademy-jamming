@@ -3,7 +3,8 @@ import { Button } from './Button';
 import Tracklist from './Tracklist';
 
 const Playlist = () => {
-  const { playlistName, playListTracks, handleChange } = usePlaylistContext();
+  const { playlistName, playListTracks, handleChange, savePlaylist } =
+    usePlaylistContext();
 
   return (
     <div className='rounded-2xl p-6 shadow'>
@@ -14,7 +15,11 @@ const Playlist = () => {
           value={playlistName}
           onChange={handleChange}
         />
-        <Button content='Save To Spotify' type='Submit' />
+        <Button
+          content='Save To Spotify'
+          type='Submit'
+          onClick={savePlaylist}
+        />
       </div>
       <Tracklist tracks={playListTracks} />
     </div>

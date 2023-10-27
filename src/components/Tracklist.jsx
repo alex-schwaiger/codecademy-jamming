@@ -9,11 +9,12 @@ const Tracklist = ({ tracks }) => {
       {tracks.map((track) => (
         <Track
           key={track.id}
-          id={track.id}
+          id={track.uri}
           name={track.name}
           artist={track.artist}
           album={track.album}
           isSelectedToPlaylist={track.isSelectedToPlaylist}
+          uri={track.uri}
           addTrack={addTrack}
           removeTrack={removeTrack}
         />

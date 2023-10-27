@@ -9,14 +9,15 @@ const Track = ({
   isSelectedToPlaylist,
   addTrack,
   removeTrack,
+  uri,
 }) => {
   const onAddTrack = useCallback(() => {
-    addTrack({ id, name, artist, album, isSelectedToPlaylist });
-  }, [addTrack, id, name, artist, isSelectedToPlaylist, album]);
+    addTrack({ id, name, artist, album, isSelectedToPlaylist, uri });
+  }, [addTrack, id, name, artist, isSelectedToPlaylist, album, uri]);
 
   const onRemoveTrack = useCallback(() => {
-    removeTrack({ id, name, artist, album, isSelectedToPlaylist });
-  }, [removeTrack, id, name, artist, isSelectedToPlaylist, album]);
+    removeTrack({ id, name, artist, album, isSelectedToPlaylist, uri });
+  }, [removeTrack, id, name, artist, isSelectedToPlaylist, album, uri]);
 
   return (
     <div className='flex justify-between py-6'>

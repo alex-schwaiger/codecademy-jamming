@@ -1,4 +1,4 @@
-const SearchBar = ({ handleChange, value }) => {
+const SearchBar = ({ handleChange, value, handleKeyDown }) => {
   return (
     <div className='flex items-center gap-3 rounded-3xl bg-slate-100 px-4 py-2'>
       <div>
@@ -20,6 +20,7 @@ const SearchBar = ({ handleChange, value }) => {
       <input
         value={value}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
         type='text'
         className='bg-slate-100 text-sm placeholder:font-sans placeholder:text-sm placeholder:font-light placeholder:italic focus:outline-none'
         placeholder='Search...'

@@ -10,13 +10,13 @@ const App = () => {
       <Header />
       <main className='container mx-auto'>
         <section className='py-14'>
-          <Search btnContent='Submit' btnType='Submit' />
-          <section className='grid gap-44 pt-14 md:grid-cols-2'>
-            <PlaylistContextComponent>
+          <PlaylistContextComponent>
+            <Search btnContent='Submit' btnType='Submit' />
+            <section className='grid gap-44 pt-14 md:grid-cols-2'>
               <SearchResults />
               <Playlist />
-            </PlaylistContextComponent>
-          </section>
+            </section>
+          </PlaylistContextComponent>
         </section>
       </main>
     </div>

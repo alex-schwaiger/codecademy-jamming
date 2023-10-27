@@ -1,50 +1,14 @@
 import { createContext, useState, useCallback } from 'react';
+import { Spotify } from '../lib/Spotify';
 
 export const PlaylistContext = createContext(undefined);
 
 export const PlaylistContextComponent = ({ children }) => {
   const [playlistName, setPlaylistName] = useState('New Playlist');
 
-  const [searchResult, setSearchResults] = useState([
-    {
-      name: 'HAPPY',
-      artist: 'NF',
-      album: 'HOPE',
-      id: 'HAPPY',
-      isSelectedToPlaylist: false,
-    },
-    {
-      id: 'MOTTO',
-      name: 'MOTTO',
-      artist: 'NF',
-      album: 'HOPE',
-      isSelectedToPlaylist: false,
-    },
-    {
-      id: 'aksdjfl',
-      name: 'sdfads',
-      artist: 'NF',
-      album: 'HOPE',
-      isSelectedToPlaylist: false,
-    },
-    {
-      id: 'MOowiuerTTO',
-      name: 'aslkdjflsdjOTTO',
-      artist: 'NF',
-      album: 'HOPE',
-      isSelectedToPlaylist: false,
-    },
-  ]);
+  const [searchResult, setSearchResults] = useState([]);
 
-  const [playListTracks, setPlaylistTracks] = useState([
-    {
-      id: 'MOTTO',
-      name: 'MOTTO',
-      artist: 'NF',
-      album: 'HOPE',
-      isSelectedToPlaylist: true,
-    },
-  ]);
+  const [playListTracks, setPlaylistTracks] = useState([]);
 
   const removeTrack = useCallback((track) => {
     track.isSelectedToPlaylist = false;
@@ -70,6 +34,18 @@ export const PlaylistContextComponent = ({ children }) => {
     setPlaylistName(e.target.value);
   }, []);
 
+  const search = useCallback((term) => {
+    Spotify.search(term).then(setSearchResults);
+  }, []);
+
+  const savePlaylist = useCallback(() => {
+    const trackUris = playListTracks.map((track) => track.uri);
+    Spotify.savePlaylist(playlistName, trackUris).then(() => {
+      setPlaylistName('New Playlist');
+      setPlaylistTracks([]);
+    });
+  }, [playlistName, playListTracks]);
+
   return (
     <>
       <PlaylistContext.Provider
@@ -83,6 +59,8 @@ export const PlaylistContextComponent = ({ children }) => {
           removeTrack,
           addTrack,
           handleChange,
+          search,
+          savePlaylist,
         }}
       >
         {children}
